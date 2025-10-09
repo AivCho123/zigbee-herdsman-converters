@@ -2794,6 +2794,12 @@ export const danfoss_icon_forced_heating_cooling: Tz.Converter = {
         await entity.read("haDiagnostic", ["danfossIconForcedHeatingCooling"], manufacturerOptions.danfoss);
     },
 };
+export const danfoss_sw_status_code: Tz.Converter = {
+    key: ["sw_status_code"],
+    convertGet: async (entity, key, meta) => {
+        await entity.read("haDiagnostic", ["danfossSWStatusCode"], manufacturerOptions.danfoss);
+    },
+};
 // biome-ignore lint/style/useNamingConvention: ignored using `--suppress`
 export const ZMCSW032D_cover_position: Tz.Converter = {
     key: ["position", "tilt"],

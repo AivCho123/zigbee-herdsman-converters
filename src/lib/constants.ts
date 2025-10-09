@@ -171,6 +171,13 @@ export const danfossIcon2PreHeatStatus: KeyValueNumberString = {
     1: "enable",
 };
 
+export const danfossSWStatusCode: KeyValueNumberString = {
+    0: "idle",
+    1: "heating",
+    2: "idle",
+    3: "cooling",
+};
+
 export const danfossOutputStatus: KeyValueNumberString = {
     0: "inactive",
     1: "active",

@@ -640,6 +640,7 @@ export const definitions: DefinitionWithExtend[] = [
             fz.temperature,
             fz.humidity,
             fz.danfoss_icon_regulator,
+            fz.danfoss_thermostat_diagnostic,
         ],
         toZigbee: [
             tz.thermostat_local_temperature,
@@ -664,6 +665,7 @@ export const definitions: DefinitionWithExtend[] = [
             tz.danfoss_multimaster_role,
             tz.danfoss_icon_application,
             tz.danfoss_icon_forced_heating_cooling,
+            tz.danfoss_sw_status_code,
         ],
         meta: {multiEndpoint: true, thermostat: {dontMapPIHeatingDemand: true}},
         exposes: [].concat(
@@ -773,7 +775,12 @@ export const definitions: DefinitionWithExtend[] = [
                                 .withEndpoint(epName)
                                 .withDescription("Danfoss pre heat status"),
                         );
-
+                        features.push(
+                            e
+                                .enum("sw_status_code", ea.STATE_GET, ["idle", "heating", "idle", "cooling"])
+                                .withEndpoint(epName)
+                                .withDescription("Danfoss sw status code")
+                        );
                         features.push(
                             e.numeric("temperature", ea.STATE_GET).withUnit("°C").withEndpoint(epName).withDescription("Floor temperature"),
                         );
@@ -888,6 +895,9 @@ export const definitions: DefinitionWithExtend[] = [
                     "minHeatSetpointLimit",
                     "maxHeatSetpointLimit",
                     "systemMode",
+                ]);
+                await endpoint.read("haDiagnostic", [
+                    "danfossSWStatusCode",
                 ]);
                 await endpoint.read("hvacThermostat", ["danfossRoomFloorSensorMode", "danfossFloorMinSetpoint", "danfossFloorMaxSetpoint"], options);
                 await endpoint.read("hvacUserInterfaceCfg", ["keypadLockout"]);
